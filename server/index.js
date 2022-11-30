@@ -7,6 +7,8 @@ import dotenv from "dotenv";
 import multer from "multer";
 import helmet from "helmet";
 import path from "path";
+import authRoutes from "../server/routes/auth.js";
+import usersRoutes from "../server/routes/users.js";
 import { fileURLToPath } from "url";
 import { register } from "./controllers/auth.js";
 
@@ -36,6 +38,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post("/auth/register", upload.single("picture"), register);
+
+// ROUTES
+app.use("/auth", authRoutes);
+app.use("/users", usersRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose
